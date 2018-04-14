@@ -1,0 +1,48 @@
+void goTZ1()
+{
+  jarak = keliling * (tengah / pulse);
+  if (jarak < -170)
+  {
+    stoptor(0);
+    delay(20);
+    RPSkandep(60, 0.2 ,0, 0.01);  RPSkirbel(60, 0.2, 0, 0.01);
+    RPSkirdep(63, 0.2, 0, 0.01);  RPSkanbel(63, 0.2, 0, 0.01);
+  }
+  else if (jarak >= -170 && jarak <= 210)
+  {
+    stoptor(0);
+    delay(5);
+    RPSkandep(67, 0.5, 0, 0.01);  RPSkirbel(67, 0.5, 0, 0.01);
+    RPSkirdep(38, 0.5, 0, 0.01);  RPSkanbel(38, 0.5, 0, 0.01);
+  }
+  else if (jarak > 211 && jarak < 330)
+  {
+      stoptor(0);
+      delay(500);
+      RPSkandep(40, 0.2, 0, 0.01);  RPSkirbel(40, 0.2, 0, 0.01);
+      RPSkirdep(40, 0.2, 0, 0.01);  RPSkanbel(40, 0.2, 0, 0.01);
+  }
+  else if (jarak > 330 && jarak < 500)
+  {
+    stoptor(0);
+    delay(50);
+    // RPSkandep(15, 0.5, 0, 0.01);  RPSkirbel(15, 0.5, 0, 0.01);
+    // RPSkirdep(0, 0, 0, 0);  RPSkanbel(0, 0, 0, 0);
+    // delay(1000);
+    RPSkandep(15, 0.2, 0, 0.01);  RPSkirbel(15, 0.2, 0, 0.01);
+    RPSkirdep(15, 0.2, 0, 0.01);  RPSkanbel(15, 0.2, 0, 0.01);
+    // delay(200);
+    //control = 1;
+  }
+  else if (jarak >= 501)
+  {
+    stoptor(0);
+    stopmotor();
+    delay(500);
+    control = 1;
+  }
+  while (control == 1)
+  {
+    control = 0;
+  }
+}
