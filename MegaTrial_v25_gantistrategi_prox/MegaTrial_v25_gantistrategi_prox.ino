@@ -51,7 +51,7 @@ int
 rpskandep = 0, rpskirdep = 0,
 rpskanbel = 0, rpskirbel = 0,
 vrps = -80, vrps1 = -82, vrps2 = -80, vrps3 = -82, vrps4 = -80, vrps5 = -82,
-v = 190, v1 = 15, v2 = 150, v3 = 107, vrpsa = 0, vrpsb = 0;
+v = 190, v1 = 15, v2 = 150, v3 = 107, vrpsa = 0, vrpsb = 0, v4 = 150, v5 = 107;
 //v =173
 float
 jariroda = 7.85, pulsa = 134,
@@ -72,7 +72,7 @@ cm = pulsa / kll, jarak = 0, jarak1 = 0;
 #define matic5A 51
 #define matic5B 53
 
-long ltime, ltime1, ltime2, ltime3, ltime4, timer, timer1, timer2, timer3, timer4, timer5;
+long ltime, ltime1, ltime2, ltime3, ltime4, timer, timer1, timer2, timer3, timer4, timer5, timer6;
 
 void setup() {
   pinMode(kandep1, OUTPUT);
@@ -134,7 +134,7 @@ void setup() {
   lbelkan = belkan, lbelkir = belkir, ltengah = tengah;
   ltime1 = millis(); ltime2 = millis(); ltime3 = millis(); ltime4 = millis();
   timer = millis(); timer1 = millis(); timer2 = millis(); timer3 = millis();
-  timer4 = millis(); timer5 = millis();
+  timer4 = millis(); timer5 = millis(), timer6 = millis();
   delay(10);
   stoptor(0);
 }
@@ -248,7 +248,7 @@ void loop() {
 
   else if (a == 'H')
   {
-    goTZ3();
+    gotrial3();
   }
 
   else if (a == 'E')
@@ -505,7 +505,12 @@ void goTZ3()
 {
   //while (1) {
   jarak = keliling * (tengah / pulse);
-  if (jarak < 120)
+  if (jarak < 0)
+  {
+    RPSkandep(40, 0.2, 0, 0.02);  RPSkirbel(78, 0.2, 0, 0.02);
+    RPSkirdep(190, 0.3, 0, 0.02);  RPSkanbel(118, 0.3, 0, 0.02);
+  }
+  else if (jarak > 0 && jarak < 120)
   {
   RPSkandep(70, 0.2, 0, 0.02);  RPSkirbel(88, 0.2, 0, 0.02);
   RPSkirdep(170, 0.3, 0, 0.02);  RPSkanbel(128, 0.3, 0, 0.02);
@@ -538,7 +543,12 @@ void goTZ3()
 void gotrial3()
 {
   jarak = keliling * (tengah / pulse);
-  if (jarak < 120)
+  if (jarak < 0)
+  {
+    RPSkandep(40, 0.2, 0, 0.02);  RPSkirbel(78, 0.2, 0, 0.02);
+    RPSkirdep(190, 0.3, 0, 0.02);  RPSkanbel(118, 0.3, 0, 0.02);
+  }
+  else if (jarak > 0 && jarak < 120)
   {
   RPSkandep(70, 0.2, 0, 0.02);  RPSkirbel(88, 0.2, 0, 0.02);
   RPSkirdep(170, 0.3, 0, 0.02);  RPSkanbel(128, 0.3, 0, 0.02);
@@ -548,9 +558,9 @@ void gotrial3()
   {
     stoptor(0);
     delay(1);
-    RPSkandep(v2, 0.2, 0, 0.02);  RPSkirbel(v2, 0.2, 0, 0.02);
-    RPSkirdep(v3, 0.2, 0, 0.02);  RPSkanbel(v3, 0.2, 0, 0.02);
-    softstart2(15);
+    RPSkandep(v4, 0.2, 0, 0.02);  RPSkirbel(v4, 0.2, 0, 0.02);
+    RPSkirdep(v5, 0.2, 0, 0.02);  RPSkanbel(v5, 0.2, 0, 0.02);
+    softstart3(5);
     //control = 2;
   }
   else if (jarak > 600 && jarak < 605)
@@ -666,6 +676,22 @@ void softstart2(float t)
     }
     if (v3 < 10) {
       v3 = 10;
+    }
+  }
+}
+
+void softstart3(float t)
+{
+  if ((millis() - timer6) > 100 && jarak < t)
+  {
+    timer6 = millis();
+    v4 -= 20;
+    v5 -= 20;
+    if (v4 < 10) {
+      v4 = 10;
+    }
+    if (v5 < 10) {
+      v5 = 10;
     }
   }
 }
