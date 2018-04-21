@@ -259,7 +259,7 @@ void loop() {
      digitalWrite(maju, LOW);
      digitalWrite(mundur, HIGH);
      analogWrite(pwm2, 0);
-     delay(500);
+     delay(300);//awal 500
      digitalWrite(maju, HIGH);
      digitalWrite(mundur, HIGH);
      analogWrite(pwm2, 255);

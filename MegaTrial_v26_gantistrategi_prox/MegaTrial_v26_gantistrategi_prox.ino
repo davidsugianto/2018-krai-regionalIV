@@ -50,8 +50,8 @@ dbelkan = 0, dbelkir = 0, dtengah = 0;
 int
 rpskandep = 0, rpskirdep = 0,
 rpskanbel = 0, rpskirbel = 0,
-vrps = -80, vrps1 = -82, vrps2 = -80, vrps3 = -82, vrps4 = -80, vrps5 = -82,
-v = 190, v1 = 15, v2 = 150, v3 = 107, vrpsa = 0, vrpsb = 0, v4 = 150, v5 = 107;
+vrps = -100, vrps1 = -107, vrps2 = -80, vrps3 = -82, vrps4 = -80, vrps5 = -82,
+v = 190, v1 = 17, v2 = 200, v3 = 157, vrpsa = 0, vrpsb = 0, v4 = 155, v5 = 147, v6 = 200, v7 = 157;
 //v =173
 float
 jariroda = 7.85, pulsa = 134,
@@ -72,7 +72,7 @@ cm = pulsa / kll, jarak = 0, jarak1 = 0;
 #define matic5A 51
 #define matic5B 53
 
-long ltime, ltime1, ltime2, ltime3, ltime4, timer, timer1, timer2, timer3, timer4, timer5, timer6;
+long ltime, ltime1, ltime2, ltime3, ltime4, timer, timer1, timer2, timer3, timer4, timer5, timer6, timer7;
 
 void setup() {
   pinMode(kandep1, OUTPUT);
@@ -134,7 +134,7 @@ void setup() {
   lbelkan = belkan, lbelkir = belkir, ltengah = tengah;
   ltime1 = millis(); ltime2 = millis(); ltime3 = millis(); ltime4 = millis();
   timer = millis(); timer1 = millis(); timer2 = millis(); timer3 = millis();
-  timer4 = millis(); timer5 = millis(), timer6 = millis();
+  timer4 = millis(); timer5 = millis(), timer6 = millis(), timer7 = millis();
   delay(10);
   stoptor(0);
 }
@@ -248,7 +248,8 @@ void loop() {
 
   else if (a == 'H')
   {
-    gotrial3();
+    //gotrial3();
+    goTZ3();
   }
 
   else if (a == 'E')
@@ -341,6 +342,38 @@ void proximity_sensorbel1()
   }
 }
 
+void proximity_sensorbel2()
+{
+  data = digitalRead(proximity);
+  if (data == 1)
+  {
+    RPSkandep(-20, 0.2, 0, 0.01);  RPSkirbel(-20, 0.2, 0, 0.01);//15
+    RPSkirdep(-20, 0.2, 0, 0.01);  RPSkanbel(-30, 0.2, 0, 0.01);
+    //SerialUSB.println("0");
+  }
+  else
+  {
+    //SerialUSB.println("1");
+    stoptor(0);
+    stopmotor();
+    delay(500);
+    ambilkok();
+    mati();
+    stoptor(0);
+    stopmotor();
+    control = 'F';
+    while (control == 'F')
+    {
+      goTZ3kotak();
+    }
+    //control = 1;
+  }
+  while (control == 1)
+  {
+    control = 0;
+  }
+}
+
 void mulai()
 {
   jarak = keliling * (tengah / pulse);
@@ -362,28 +395,28 @@ void goTZ1()
 {
   //while (1) {
   jarak = keliling * (tengah / pulse);
-  if (jarak < -138)
+  if (jarak < -148)
   {
-    RPSkandep(50, 0.15, 0, 0.01);  RPSkirbel(50, 0.15, 0, 0.01);
-    RPSkirdep(59, 0.2, 0, 0.01);  RPSkanbel(52, 0.15, 0, 0.01); //kirdep 55 p 0.15
+    RPSkandep(57, 0.2, 0, 0.01);  RPSkirbel(77, 0.2, 0, 0.01);
+    RPSkirdep(210, 0.4, 0, 0.01);  RPSkanbel(120, 0.3, 0, 0.01); //kirdep 55 p 0.15
   }
-  else if (jarak >= -138 && jarak < 150)//157 // 211 300
+  else if (jarak >= -148 && jarak < 140)//150
   {
     RPSkandep(v, 0.2, 5, 0.01);  RPSkirbel(v, 0.2, 0, 0.01);
     RPSkirdep(v1, 0.25, 0, 0.01);  RPSkanbel(v1, 0.25, 0, 0.01);
     brake(175);//200
   }
-  else if (jarak >= 150 && jarak < 330)
+  else if (jarak >= 140 && jarak < 452)
   {
-    RPSkandep(85, 0.25, 0, 0.01);  RPSkirbel(41, 0.2, 0, 0.01);//kandep 59
-    RPSkirdep(27, 0.2, 0, 0.01);  RPSkanbel(40, 0.2, 0, 0.01);
+    RPSkandep(45, 0.25, 0, 0.01);  RPSkirbel(45, 0.2, 0, 0.01);//kandep 59
+    RPSkirdep(30, 0.2, 0, 0.01);  RPSkanbel(30, 0.2, 0, 0.01);
   }
-  else if (jarak >= 330 && jarak < 452)
+  else if (jarak >= 452 && jarak < 482)
   {
     RPSkandep(35, 0.5, 0, 0.01);  RPSkirbel(35, 0.5, 0, 0.01);
     RPSkirdep(35, 0.5, 0, 0.01);  RPSkanbel(35, 0.5, 0, 0.01);
   }
-  else if (jarak > 452 && jarak < 455)
+  else if (jarak > 482 && jarak < 485)
   {
      // stoptor(0);
      // stopmotor();
@@ -451,12 +484,12 @@ void gotrial2()
 void goEmas()
 {
   jarak = keliling * (tengah / pulse);
-  if (jarak >= -225)//220
+  if (jarak >= -180)//225
   {
     RPSkirdep(vrps3, 0.2, 0, 0.02);   RPSkirbel(vrps3, 0.2, 0, 0.02);
     RPSkandep(vrps2, 0.2, 0, 0.02);   RPSkanbel(vrps2, 0.2, 0, 0.02);
-    softbrake3(55);//120 //55
-    if (jarak <= -190 && jarak >= -200)
+    softbrake3(80);//120 //55
+    if (jarak <= -170 && jarak >= -180)
     {
       bukakok2();
     }
@@ -478,12 +511,12 @@ void goEmas()
 void goEmasTrial()
 {
   jarak = keliling * (tengah / pulse);
-  if (jarak >= -220)//220
+  if (jarak >= -175)//220
   {
     RPSkirdep(vrps5, 0.2, 0, 0.02);   RPSkirbel(vrps5, 0.2, 0, 0.02);
     RPSkandep(vrps4, 0.2, 0, 0.02);   RPSkanbel(vrps4, 0.2, 0, 0.02);
     softbrake4(94);//100
-    if (jarak <= -190 && jarak >= -200)
+    if (jarak <= -155 && jarak >= -165)
     {
       bukakok2();
     }
@@ -493,7 +526,7 @@ void goEmasTrial()
   {
     stoptor(0);
     delay(10);
-    proximity_sensorbel1();
+    proximity_sensorbel2();
   }
   while (control == 1)
   {
@@ -516,16 +549,55 @@ void goTZ3()
   RPSkirdep(170, 0.3, 0, 0.02);  RPSkanbel(128, 0.3, 0, 0.02);
     //control = 2;
   }
-  else if (jarak >= 120 && jarak < 600)//675
+  else if (jarak >= 120 && jarak < 820)//675
   {
     stoptor(0);
     delay(1);
-    RPSkandep(v2, 0.2, 0, 0.02);  RPSkirbel(v2, 0.2, 0, 0.02);
-    RPSkirdep(v3, 0.2, 0, 0.02);  RPSkanbel(v3, 0.2, 0, 0.02);
-    softstart2(15);
+    RPSkandep(v3, 0.2, 0, 0.02);  RPSkirbel(v3, 0.2, 0, 0.02);
+    RPSkirdep(v2, 0.2, 0, 0.02);  RPSkanbel(v2, 0.2, 0, 0.02);
+    softstart2(790);//790
     //control = 2;
   }
-  else if (jarak > 600 && jarak < 605)
+  else if (jarak > 820 && jarak < 825)
+  {
+    stoptor(0);
+    stopmotor();
+    //break;
+    delay(500);
+    control = 2;
+  }
+//}
+  while (control == 2)
+  {
+    control = 0;
+  }
+}
+
+void goTZ3kotak()
+{
+  //while (1) {
+  jarak = keliling * (tengah / pulse);
+  if (jarak < 0)
+  {
+    RPSkandep(40, 0.2, 0, 0.02);  RPSkirbel(78, 0.2, 0, 0.02);
+    RPSkirdep(190, 0.3, 0, 0.02);  RPSkanbel(118, 0.3, 0, 0.02);
+  }
+  else if (jarak > 0 && jarak < 120)
+  {
+  RPSkandep(70, 0.2, 0, 0.02);  RPSkirbel(88, 0.2, 0, 0.02);
+  RPSkirdep(170, 0.3, 0, 0.02);  RPSkanbel(128, 0.3, 0, 0.02);
+    //control = 2;
+  }
+  else if (jarak >= 120 && jarak < 820)//675
+  {
+    stoptor(0);
+    delay(1);
+    RPSkandep(v7, 0.2, 0, 0.02);  RPSkirbel(v7, 0.2, 0, 0.02);
+    RPSkirdep(v6, 0.2, 0, 0.02);  RPSkanbel(v6, 0.2, 0, 0.02);
+    softstart4(790);//790
+    //control = 2;
+  }
+  else if (jarak > 820 && jarak < 825)
   {
     stoptor(0);
     stopmotor();
@@ -558,8 +630,8 @@ void gotrial3()
   {
     stoptor(0);
     delay(1);
-    RPSkandep(v4, 0.2, 0, 0.02);  RPSkirbel(v4, 0.2, 0, 0.02);
-    RPSkirdep(v5, 0.2, 0, 0.02);  RPSkanbel(v5, 0.2, 0, 0.02);
+    RPSkandep(v5, 0.2, 0, 0.02);  RPSkirbel(v5, 0.2, 0, 0.02);
+    RPSkirdep(v4, 0.2, 0, 0.02);  RPSkanbel(v4, 0.2, 0, 0.02);
     softstart3(5);
     //control = 2;
   }
@@ -637,8 +709,8 @@ void softbrake(float t)
   if ((millis() - timer) > 100 && jarak < t)
   {
     timer = millis();
-    vrps += 20;
-    vrps1 += 20;
+    vrps += 30;
+    vrps1 += 30;
     if (vrps > -7) {
       vrps = -7;
     }
@@ -669,8 +741,8 @@ void softstart2(float t)
   if ((millis() - timer2) > 100 && jarak < t)
   {
     timer2 = millis();
-    v2 -= 20;
-    v3 -= 20;
+    v2 -= 10;//10
+    v3 -= 10;//10
     if (v2 < 10) {
       v2 = 10;
     }
@@ -692,6 +764,22 @@ void softstart3(float t)
     }
     if (v5 < 10) {
       v5 = 10;
+    }
+  }
+}
+
+void softstart4(float t)
+{
+  if ((millis() - timer7) > 100 && jarak < t)
+  {
+    timer7 = millis();
+    v6 -= 10;//10
+    v7 -= 10;//10
+    if (v6 < 10) {
+      v6 = 10;
+    }
+    if (v7 < 10) {
+      v7 = 10;
     }
   }
 }
