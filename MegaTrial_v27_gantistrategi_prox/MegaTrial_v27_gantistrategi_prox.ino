@@ -1,4 +1,4 @@
-//Mega trial fix v25 siap tanding BISMILLAH
+//Mega trial fix v27 siap tanding BISMILLAH speed lebih cepat
 int control = 0, a ='0', dinding;
 const int pingpin = A0;
 #define proximity 25
@@ -248,8 +248,7 @@ void loop() {
 
   else if (a == 'H')
   {
-    //gotrial3();
-    goTZ3();
+    goTZ3select();
   }
 
   else if (a == 'E')
@@ -411,12 +410,12 @@ void goTZ1()
     RPSkandep(45, 0.25, 0, 0.01);  RPSkirbel(45, 0.2, 0, 0.01);//kandep 59
     RPSkirdep(30, 0.2, 0, 0.01);  RPSkanbel(30, 0.2, 0, 0.01);
   }
-  else if (jarak >= 452 && jarak < 482)
+  else if (jarak >= 452 && jarak < 492)
   {
     RPSkandep(35, 0.5, 0, 0.01);  RPSkirbel(35, 0.5, 0, 0.01);
     RPSkirdep(35, 0.5, 0, 0.01);  RPSkanbel(35, 0.5, 0, 0.01);
   }
-  else if (jarak > 482 && jarak < 485)
+  else if (jarak > 492 && jarak < 495)
   {
      // stoptor(0);
      // stopmotor();
@@ -484,7 +483,7 @@ void gotrial2()
 void goEmas()
 {
   jarak = keliling * (tengah / pulse);
-  if (jarak >= -180)//225
+  if (jarak >= -183)//225
   {
     RPSkirdep(vrps3, 0.2, 0, 0.02);   RPSkirbel(vrps3, 0.2, 0, 0.02);
     RPSkandep(vrps2, 0.2, 0, 0.02);   RPSkanbel(vrps2, 0.2, 0, 0.02);
@@ -612,8 +611,9 @@ void goTZ3kotak()
   }
 }
 
-void gotrial3()
+void goTZ3select()
 {
+  //while (1) {
   jarak = keliling * (tengah / pulse);
   if (jarak < 0)
   {
@@ -626,16 +626,16 @@ void gotrial3()
   RPSkirdep(170, 0.3, 0, 0.02);  RPSkanbel(128, 0.3, 0, 0.02);
     //control = 2;
   }
-  else if (jarak >= 120 && jarak < 600)//675
+  else if (jarak >= 120 && jarak < 800)//675
   {
     stoptor(0);
     delay(1);
     RPSkandep(v5, 0.2, 0, 0.02);  RPSkirbel(v5, 0.2, 0, 0.02);
     RPSkirdep(v4, 0.2, 0, 0.02);  RPSkanbel(v4, 0.2, 0, 0.02);
-    softstart3(5);
+    softstart3(620);//790
     //control = 2;
   }
-  else if (jarak > 600 && jarak < 605)
+  else if (jarak > 800 && jarak < 805)
   {
     stoptor(0);
     stopmotor();
