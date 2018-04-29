@@ -86,7 +86,7 @@ void loop() {
     digitalWrite(maju, HIGH);
     digitalWrite(mundur, LOW);
     analogWrite(pwm2, 0);
-    delay(100);
+    delay(30);
     digitalWrite(maju, HIGH);
     digitalWrite(mundur, HIGH);
     analogWrite(pwm2, 255);
@@ -259,7 +259,7 @@ void loop() {
      digitalWrite(maju, LOW);
      digitalWrite(mundur, HIGH);
      analogWrite(pwm2, 0);
-     delay(300);//awal 500
+     delay(100);//awal 500
      digitalWrite(maju, HIGH);
      digitalWrite(mundur, HIGH);
      analogWrite(pwm2, 255);
@@ -331,35 +331,35 @@ void loop() {
 
    if (LX != LXold || LY != LYold)
    {
-     if (LY == 0 && LX == 123) //majupelan
+     if (LY == 0 && LX == 132) //majupelan
      {
       // Serial.print("aa");
      }
 
-     if (LY == 255 && LX == 123) //mundurpelan
+     if (LY == 255 && LX == 132) //mundurpelan
      {
       // Serial.print("bb");
      }
 
-     if (LY == 123 && LX == 0) //kiripelan
+     if (LY == 132 && LX == 0) //kiripelan
      { //Serial.print("cc");
         putar(kanan, kiri, 195, HIGH, LOW);
      }
 
-     if (LY == 123 && LX == 255) //kananpelan
+     if (LY == 132 && LX == 255) //kananpelan
      { //Serial.print("dd");
         putar(kanan, kiri, 195, LOW, HIGH);
      }
 
-     if (LY == 123 && LX == 123) //stopotor
+     if (LY == 132 && LX == 123) //stopotor
      {
        // slider(maju, mundur, 255, HIGH, HIGH);
        putar(kanan, kiri, 255, HIGH, HIGH);
        //Serial.println("stop");
      }
-  // Serial.print(LX);
-  // Serial.print(", ");
-  // Serial.println(LY);
+   //Serial.print(LX);
+   //Serial.print(", ");
+   //Serial.println(LY);
    }
 
    if (RX != RXold || RY != RYold)
@@ -385,15 +385,15 @@ void loop() {
      { //Serial.print("jj");
      }
 
-     if (RY == 132 && RX == 123) //stopotor
+     if (RY == 123 && RX == 123) //stopotor
      {
        // slider(maju, mundur, 255, HIGH, HIGH);
        slider(maju, mundur, 255, HIGH, HIGH);
        //Serial.println("stop");
      }
-  // Serial.print(RX);
-  // Serial.print(", ");
-  // Serial.println(RY);
+   //Serial.print(RX);
+   //Serial.print(", ");
+   //Serial.println(RY);
    }
    LYold = LY;
    LXold = LX;

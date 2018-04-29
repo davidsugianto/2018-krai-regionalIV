@@ -1,4 +1,4 @@
-//Mega trial fix v27 siap tanding BISMILLAH speed lebih cepat
+//BISMILLAHIRROHMANIRROHIM siap tanding
 int control = 0, a ='0', dinding;
 const int pingpin = A0;
 #define proximity 25
@@ -50,7 +50,7 @@ dbelkan = 0, dbelkir = 0, dtengah = 0;
 int
 rpskandep = 0, rpskirdep = 0,
 rpskanbel = 0, rpskirbel = 0,
-vrps = -100, vrps1 = -107, vrps2 = -80, vrps3 = -82, vrps4 = -80, vrps5 = -82,
+vrps = -85, vrps1 = -87, vrps2 = -80, vrps3 = -82, vrps4 = -80, vrps5 = -82,
 v = 190, v1 = 17, v2 = 300, v3 = 257, vrpsa = 0, vrpsb = 0, v4 = 300, v5 = 270, v6 = 300, v7 = 257;
 //v =173
 float
@@ -284,8 +284,8 @@ void proximity_sensorbel()
   data1 = digitalRead(proximity1);
   if (data1 == 1)
   {
-    RPSkandep(-15, 0.2, 0, 0.01);  RPSkirbel(-15, 0.2, 0, 0.01);
-    RPSkirdep(-15, 0.2, 0, 0.01);  RPSkanbel(-15, 0.2, 0, 0.01);
+    RPSkandep(-20, 0.2, 0, 0.01);  RPSkirbel(-20, 0.2, 0, 0.01);//15
+    RPSkirdep(-20, 0.2, 0, 0.01);  RPSkanbel(-20, 0.2, 0, 0.01);
     //SerialUSB.println("0");
   }
   else
@@ -314,8 +314,8 @@ void proximity_sensorbel1()
   data = digitalRead(proximity);
   if (data == 1)
   {
-    RPSkandep(-25, 0.3, 0, 0.01);  RPSkirbel(-12, 0.2, 0, 0.01);//15
-    RPSkirdep(-15, 0.2, 0, 0.01);  RPSkanbel(-15, 0.2, 0, 0.01);
+    RPSkandep(-20, 0.2, 0, 0.01);  RPSkirbel(-20, 0.2, 0, 0.01);//15
+    RPSkirdep(-20, 0.2, 0, 0.01);  RPSkanbel(-30, 0.2, 0, 0.01);
     //SerialUSB.println("0");
   }
   else
@@ -380,7 +380,7 @@ void mulai()
   {
     RPSkirdep(vrps1, 0.2, 0, 0.02);   RPSkirbel(vrps1, 0.2, 0, 0.02);
     RPSkandep(vrps, 0.2, 0, 0.02);    RPSkanbel(vrps, 0.2, 0, 0.02);
-    softbrake(-20);
+    softbrake(-25);
   }
   else
   {
@@ -394,28 +394,28 @@ void goTZ1()
 {
   //while (1) {
   jarak = keliling * (tengah / pulse);
-  if (jarak < -148)
+  if (jarak < -138)
   {
-    RPSkandep(57, 0.2, 0, 0.01);  RPSkirbel(77, 0.2, 0, 0.01);
-    RPSkirdep(210, 0.4, 0, 0.01);  RPSkanbel(120, 0.3, 0, 0.01); //kirdep 55 p 0.15
+    RPSkandep(50, 0.15, 0, 0.01);  RPSkirbel(50, 0.15, 0, 0.01);
+    RPSkirdep(59, 0.2, 0, 0.01);  RPSkanbel(52, 0.15, 0, 0.01); //kirdep 55 p 0.15
   }
-  else if (jarak >= -148 && jarak < 140)//150
+  else if (jarak >= -138 && jarak < 150)//157 // 211 300
   {
     RPSkandep(v, 0.2, 5, 0.01);  RPSkirbel(v, 0.2, 0, 0.01);
     RPSkirdep(v1, 0.25, 0, 0.01);  RPSkanbel(v1, 0.25, 0, 0.01);
     brake(175);//200
   }
-  else if (jarak >= 140 && jarak < 452)
+  else if (jarak >= 150 && jarak < 330)
   {
-    RPSkandep(45, 0.25, 0, 0.01);  RPSkirbel(45, 0.2, 0, 0.01);//kandep 59
-    RPSkirdep(30, 0.2, 0, 0.01);  RPSkanbel(30, 0.2, 0, 0.01);
+    RPSkandep(85, 0.25, 0, 0.01);  RPSkirbel(41, 0.2, 0, 0.01);//kandep 59
+    RPSkirdep(27, 0.2, 0, 0.01);  RPSkanbel(40, 0.2, 0, 0.01);
   }
-  else if (jarak >= 452 && jarak < 492)
+  else if (jarak >= 330 && jarak < 458)
   {
     RPSkandep(35, 0.5, 0, 0.01);  RPSkirbel(35, 0.5, 0, 0.01);
     RPSkirdep(35, 0.5, 0, 0.01);  RPSkanbel(35, 0.5, 0, 0.01);
   }
-  else if (jarak > 492 && jarak < 495)
+  else if (jarak > 458 && jarak < 461)
   {
      // stoptor(0);
      // stopmotor();
@@ -483,12 +483,12 @@ void gotrial2()
 void goEmas()
 {
   jarak = keliling * (tengah / pulse);
-  if (jarak >= -197)//225 187
+  if (jarak >= -225)//220
   {
     RPSkirdep(vrps3, 0.2, 0, 0.02);   RPSkirbel(vrps3, 0.2, 0, 0.02);
     RPSkandep(vrps2, 0.2, 0, 0.02);   RPSkanbel(vrps2, 0.2, 0, 0.02);
-    softbrake3(78);//120 //55
-    if (jarak <= -180 && jarak >= -190)
+    softbrake3(55);//120 //55
+    if (jarak <= -190 && jarak >= -200)
     {
       bukakok2();
     }
@@ -498,7 +498,6 @@ void goEmas()
   {
     // bukakok2();
     stoptor(0);
-    stopmotor();
     delay(10);
     proximity_sensorbel1();
   }
@@ -511,12 +510,12 @@ void goEmas()
 void goEmasTrial()
 {
   jarak = keliling * (tengah / pulse);
-  if (jarak >= -175)//220
+  if (jarak >= -220)//220
   {
     RPSkirdep(vrps5, 0.2, 0, 0.02);   RPSkirbel(vrps5, 0.2, 0, 0.02);
     RPSkandep(vrps4, 0.2, 0, 0.02);   RPSkanbel(vrps4, 0.2, 0, 0.02);
-    softbrake4(90);//100
-    if (jarak <= -155 && jarak >= -165)
+    softbrake4(94);//100
+    if (jarak <= -190 && jarak >= -200)
     {
       bukakok2();
     }
@@ -525,9 +524,8 @@ void goEmasTrial()
   else
   {
     stoptor(0);
-    stopmotor();
     delay(10);
-    proximity_sensorbel2();
+    proximity_sensorbel1();
   }
   while (control == 1)
   {
@@ -550,16 +548,16 @@ void goTZ3()
   RPSkirdep(170, 0.3, 0, 0.02);  RPSkanbel(128, 0.3, 0, 0.02);
     //control = 2;
   }
-  else if (jarak >= 120 && jarak < 800)//675
+  else if (jarak >= 120 && jarak < 770)//675
   {
     stoptor(0);
     delay(1);
     RPSkandep(v3, 0.2, 0, 0.02);  RPSkirbel(v3, 0.2, 0, 0.02);
     RPSkirdep(v2, 0.2, 0, 0.02);  RPSkanbel(v2, 0.2, 0, 0.02);
-    softstart2(620);//790
+    softstart2(590);//620
     //control = 2;
   }
-  else if (jarak > 800 && jarak < 805)
+  else if (jarak > 770 && jarak < 775)
   {
     stoptor(0);
     stopmotor();
@@ -589,16 +587,16 @@ void goTZ3kotak()
   RPSkirdep(170, 0.3, 0, 0.02);  RPSkanbel(128, 0.3, 0, 0.02);
     //control = 2;
   }
-  else if (jarak >= 120 && jarak < 800)//675
+  else if (jarak >= 120 && jarak < 770)//675
   {
     stoptor(0);
     delay(1);
     RPSkandep(v7, 0.2, 0, 0.02);  RPSkirbel(v7, 0.2, 0, 0.02);
     RPSkirdep(v6, 0.2, 0, 0.02);  RPSkanbel(v6, 0.2, 0, 0.02);
-    softstart4(620);//790
+    softstart4(590);//790
     //control = 2;
   }
-  else if (jarak > 800 && jarak < 805)
+  else if (jarak > 770 && jarak < 775)
   {
     stoptor(0);
     stopmotor();
@@ -633,7 +631,7 @@ void goTZ3select()
   {
     softstart3(450);//790
     jarak = keliling * (tengah / pulse);
-    RPSkandep(v5, 0.23, 0, 0.02);  RPSkirbel(v4, 0.23, 0, 0.02);
+    RPSkandep(v5, 0.2, 0, 0.02);  RPSkirbel(v4, 0.2, 0, 0.02);
     RPSkirdep(v4, 0.2, 0, 0.02);  RPSkanbel(v5, 0.2, 0, 0.02);
     control = 2;
   }
@@ -1024,13 +1022,13 @@ void serong1()
 
 void up()
 {
-  analogWrite(kirdep1, 60);
+  analogWrite(kirdep1, 75);
   analogWrite(kirdep2, LOW);
-  analogWrite(kanbel1, 50);
+  analogWrite(kanbel1, 75);
   analogWrite(kanbel2, LOW);
-  analogWrite(kandep1, 50);
+  analogWrite(kandep1, 75);
   analogWrite(kandep2, LOW);
-  analogWrite(kirbel1, 50);
+  analogWrite(kirbel1, 75);
   analogWrite(kirbel2, LOW);
 }
 
@@ -1085,12 +1083,12 @@ void downFast()
 void ngiri()
 {
   analogWrite(kirdep1, LOW);
-  analogWrite(kirdep2, 45);
+  analogWrite(kirdep2, 75);
   analogWrite(kanbel1, LOW);
-  analogWrite(kanbel2, 45);
-  analogWrite(kandep1, 40);
+  analogWrite(kanbel2, 75);
+  analogWrite(kandep1, 75);
   analogWrite(kandep2, LOW);
-  analogWrite(kirbel1, 40);
+  analogWrite(kirbel1, 75);
   analogWrite(kirbel2, LOW);
 }
 
